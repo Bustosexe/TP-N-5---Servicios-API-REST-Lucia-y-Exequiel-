@@ -8,14 +8,10 @@ using Microsoft.IdentityModel.Tokens;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-<<<<<<< HEAD
 builder.Services.AddControllers().AddJsonOptions(options =>
 {
     options.JsonSerializerOptions.ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.IgnoreCycles;
 });
-=======
-builder.Services.AddControllers();
->>>>>>> dbb54449c0443ffe3f887af7f88f05eb229fdad0
 
 // 2. CONFIGURAR BASE DE DATOS
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
@@ -59,7 +55,6 @@ app.UseHttpsRedirection();
 
 // 6. MIDDLEWARES 
 app.UseStaticFiles(); // Para leer imágenes en wwwroot/uploads
-
 app.UseCors("PermitirTodo"); // Primero permitir que entren peticiones
 app.UseAuthentication();     // Segundo identificar quién es
 app.UseAuthorization();      // Tercero ver si tiene permisos
