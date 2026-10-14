@@ -1,0 +1,184 @@
+﻿@page "/contactos"
+@inject HttpClient Http
+
+<div class="container-fluid pt-3 pb-5" style="background-color: #F8F9FA; min-height: 100vh;">
+    <!-- Encabezado superior -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div class="d-flex align-items-center">
+            <div class="bg-primary text-white rounded-3 p-2 me-2 d-flex align-items-center justify-content-center" style="background-color: #5B4EFA !important; width: 35px; height: 35px;">
+                <i class="bi bi-diagram-3-fill"></i>
+            </div>
+            <div>
+                <small class="text-secondary fw-bold d-block" style="font-size: 0.65rem; letter-spacing: 1px;">B2B CORE</small>
+                <h6 class="fw-bold mb-0 text-dark">Contactos</h6>
+            </div>
+        </div>
+        <div class="d-flex gap-3 text-secondary fs-5 align-items-center">
+            <i class="bi bi-bell"></i>
+            <img src="https://ui-avatars.com/api/?name=Admin&background=random" class="rounded-circle" width="32" alt="Avatar">
+        </div>
+    </div>
+
+    <!-- Título y Estado -->
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <div>
+            <h4 class="fw-bold text-dark mb-0">Directorio de Contactos</h4>
+            <small class="text-muted" style="font-size: 0.75rem;"><i class="bi bi-circle-fill text-success me-1" style="font-size: 0.4rem;"></i> 86 empresas registradas • Sincronizado API</small>
+        </div>
+        <button class="btn btn-light rounded-circle shadow-sm text-secondary" style="width: 40px; height: 40px;">
+            <i class="bi bi-cloud-download"></i>
+        </button>
+    </div>
+
+    <!-- Buscador -->
+    <div class="d-flex gap-2 mb-3">
+        <div class="input-group bg-white rounded-4 shadow-sm border border-light overflow-hidden">
+            <span class="input-group-text bg-white border-0 text-muted ps-3"><i class="bi bi-search"></i></span>
+            <input type="text" class="form-control border-0 shadow-none bg-white" placeholder="Buscar por razón social o RUC..." style="font-size: 0.85rem;">
+        </div>
+        <button class="btn btn-white bg-white border rounded-4 shadow-sm text-secondary px-3">
+            <i class="bi bi-sliders"></i>
+        </button>
+    </div>
+
+    <!-- Pestañas (Segmented Control) -->
+    <div class="bg-white rounded-pill p-1 shadow-sm d-flex mb-4 border">
+        <button class="btn @(mostrarClientes ? "btn-primary text-white shadow-sm" : "btn-white text-muted") fw-bold w-50 rounded-pill d-flex justify-content-center align-items-center gap-2 transition-all"
+                style="@(mostrarClientes ? "background-color: #5B4EFA; border: none;" : "background-color: transparent; border: none;") font-size: 0.85rem;"
+                @onclick="() => mostrarClientes = true">
+            Clientes <span class="badge rounded-pill @(mostrarClientes ? "bg-white text-primary" : "bg-light text-muted") ms-1" style="font-size: 0.65rem;">54</span>
+        </button>
+        <button class="btn @(!mostrarClientes ? "btn-primary text-white shadow-sm" : "btn-white text-muted") fw-bold w-50 rounded-pill d-flex justify-content-center align-items-center gap-2 transition-all"
+                style="@(!mostrarClientes ? "background-color: #5B4EFA; border: none;" : "background-color: transparent; border: none;") font-size: 0.85rem;"
+                @onclick="() => mostrarClientes = false">
+            Proveedores <span class="badge rounded-pill @(!mostrarClientes ? "bg-white text-primary" : "bg-light text-muted") ms-1" style="font-size: 0.65rem;">32</span>
+        </button>
+    </div>
+
+    <!-- Lista de Contactos -->
+    <div class="pb-5 mb-5">
+        @if (mostrarClientes)
+        {
+            <!-- Tarjeta Cliente 1 -->
+            <div class="card border-0 shadow-sm rounded-4 mb-3">
+                <div class="card-body p-3">
+                    <div class="d-flex justify-content-between align-items-start mb-2">
+                        <div class="d-flex align-items-center gap-3">
+                            <div class="bg-primary bg-opacity-10 text-primary rounded-circle d-flex align-items-center justify-content-center fw-bold" style="width: 45px; height: 45px; color: #5B4EFA !important;">
+                                TS
+                            </div>
+                            <div>
+                                <h6 class="fw-bold text-dark mb-1" style="font-size: 0.95rem;">Tech Solutions S.A.</h6>
+                                <div class="d-flex gap-2">
+                                    <span class="badge bg-light text-secondary rounded-pill" style="font-size: 0.65rem;">B2B</span>
+                                    <span class="badge bg-light text-secondary rounded-pill font-monospace" style="font-size: 0.65rem;">RUC: 20554182910</span>
+                                </div>
+                            </div>
+                        </div>
+                        <i class="bi bi-three-dots-vertical text-muted"></i>
+                    </div>
+
+                    <div class="mb-3 px-1">
+                        <div class="d-flex align-items-center mb-1 text-primary" style="font-size: 0.8rem; color: #5B4EFA !important;">
+                            <i class="bi bi-telephone me-2"></i> +51 987 654 321
+                        </div>
+                        <div class="d-flex align-items-center text-primary" style="font-size: 0.8rem; color: #5B4EFA !important;">
+                            <i class="bi bi-envelope me-2"></i> facturacion@techsolutions.pe
+                        </div>
+                    </div>
+
+                    <div class="d-flex justify-content-between align-items-center bg-light rounded-3 p-2 px-3 mb-3">
+                        <div>
+                            <small class="text-muted d-block" style="font-size: 0.7rem;">Saldo pendiente</small>
+                            <span class="fw-bold text-danger">$1,280.00</span>
+                        </div>
+                        <div class="text-end">
+                            <small class="text-muted d-block" style="font-size: 0.7rem;">Límite crédito</small>
+                            <span class="fw-bold text-dark">$10,000.00</span>
+                        </div>
+                    </div>
+
+                    <div class="d-flex gap-2">
+                        <button class="btn btn-info bg-opacity-10 text-info fw-bold rounded-3 w-50" style="font-size: 0.85rem; border: none; color: #00A884 !important; background-color: #E8F7F3 !important;">
+                            <i class="bi bi-whatsapp me-1"></i> WhatsApp
+                        </button>
+                        <button class="btn btn-primary fw-bold text-white rounded-3 w-50" style="background-color: #5B4EFA; border: none; font-size: 0.85rem;">
+                            <i class="bi bi-cash-coin me-1"></i> Registrar Cobro
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tarjeta Cliente 2 -->
+            <div class="card border-0 shadow-sm rounded-4 mb-3">
+                <div class="card-body p-3">
+                    <div class="d-flex justify-content-between align-items-start mb-2">
+                        <div class="d-flex align-items-center gap-3">
+                            <div class="bg-primary bg-opacity-10 text-primary rounded-circle d-flex align-items-center justify-content-center fw-bold" style="width: 45px; height: 45px;">
+                                LN
+                            </div>
+                            <div>
+                                <h6 class="fw-bold text-dark mb-1" style="font-size: 0.95rem;">Logística del Norte SRL</h6>
+                                <div class="d-flex gap-2">
+                                    <span class="badge bg-light text-secondary rounded-pill" style="font-size: 0.65rem;">B2B</span>
+                                    <span class="badge bg-light text-secondary rounded-pill font-monospace" style="font-size: 0.65rem;">RUC: 20491823901</span>
+                                </div>
+                            </div>
+                        </div>
+                        <i class="bi bi-three-dots-vertical text-muted"></i>
+                    </div>
+
+                    <div class="mb-3 px-1">
+                        <div class="d-flex align-items-center mb-1 text-primary" style="font-size: 0.8rem; color: #5B4EFA !important;">
+                            <i class="bi bi-telephone me-2"></i> +51 941 230 491
+                        </div>
+                        <div class="d-flex align-items-center text-primary" style="font-size: 0.8rem; color: #5B4EFA !important;">
+                            <i class="bi bi-envelope me-2"></i> compras@logisticanorte.com
+                        </div>
+                    </div>
+
+                    <div class="d-flex justify-content-between align-items-center bg-light rounded-3 p-2 px-3 mb-3">
+                        <div>
+                            <small class="text-muted d-block" style="font-size: 0.7rem;">Última compra</small>
+                            <span class="fw-bold text-dark">$3,450.00</span>
+                        </div>
+                        <div class="text-end">
+                            <span class="badge bg-success bg-opacity-10 text-success rounded-pill px-2 py-1 border border-success border-opacity-25" style="font-size: 0.7rem;"><i class="bi bi-check-circle-fill me-1"></i>Al día • Sin deuda</span>
+                        </div>
+                    </div>
+
+                    <div class="d-flex gap-2">
+                        <button class="btn btn-info bg-opacity-10 text-info fw-bold rounded-3 w-50" style="font-size: 0.85rem; border: none; color: #00A884 !important; background-color: #E8F7F3 !important;">
+                            <i class="bi bi-whatsapp me-1"></i> WhatsApp
+                        </button>
+                        <button class="btn btn-light fw-bold text-secondary rounded-3 w-50" style="border: none; font-size: 0.85rem;">
+                            <i class="bi bi-eye me-1"></i> Ver Ficha
+                        </button>
+                    </div>
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="text-center py-5">
+                <i class="bi bi-truck fs-1 text-muted mb-2 opacity-50"></i>
+                <p class="text-muted">Lista de proveedores sincronizada.</p>
+            </div>
+        }
+    </div>
+
+    <!-- Botón Flotante Central/Derecha -->
+    <div class="position-fixed" style="bottom: 80px; right: 20px; z-index: 1040;">
+        <button class="btn btn-primary rounded-pill px-4 py-3 shadow-lg fw-bold d-flex align-items-center gap-2" style="background-color: #5B4EFA; border: none;">
+            <i class="bi bi-plus-lg fs-5"></i> Nuevo Contacto
+        </button>
+    </div>
+</div>
+
+@code {
+    // Variable para controlar la pestaña activa (true = Clientes, false = Proveedores)
+    private bool mostrarClientes = true;
+
+    // Aquí en el futuro se implementará la llamada a _context.Clientes y _context.Proveedores
+    // mediante HTTP GET consumiendo la API paginada que armaste en el TP5.
+}

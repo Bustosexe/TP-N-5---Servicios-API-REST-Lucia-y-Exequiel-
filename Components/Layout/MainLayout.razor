@@ -1,0 +1,39 @@
+﻿@inherits LayoutComponentBase
+
+<div class="page" style="background-color: #F8F9FA; min-height: 100vh;">
+    <!-- Contenedor Principal donde se inyectan las pantallas -->
+    <main class="content pb-5 mb-4">
+        @Body
+    </main>
+
+    <!-- Barra de Navegación Inferior Fija (Estilo App Móvil) -->
+    <nav class="fixed-bottom bg-white border-top shadow-sm pb-2 pt-2 px-3 d-flex justify-content-between" style="z-index: 1050;">
+
+        <NavLink href="/" class="nav-link text-center d-flex flex-column align-items-center" Match="NavLinkMatch.All" ActiveClass="text-primary fw-bold">
+            <i class="bi bi-grid fs-4 mb-1"></i>
+            <span style="font-size: 0.7rem;">Inicio</span>
+        </NavLink>
+
+
+        <NavLink href="/catalogo" class="nav-link text-center d-flex flex-column align-items-center text-secondary" ActiveClass="text-primary fw-bold">
+            <i class="bi bi-box-seam fs-4 mb-1"></i>
+            <span style="font-size: 0.7rem;">Inventario</span>
+        </NavLink>
+
+        <NavLink href="/movimientos" class="nav-link text-center d-flex flex-column align-items-center text-secondary" ActiveClass="text-primary fw-bold">
+            <i class="bi bi-arrow-left-right fs-4 mb-1"></i>
+            <span style="font-size: 0.7rem;">Operaciones</span>
+        </NavLink>
+
+        <NavLink href="/contactos" class="nav-link text-center d-flex flex-column align-items-center text-secondary" ActiveClass="text-primary fw-bold">
+            <i class="bi bi-people fs-4 mb-1"></i>
+            <span style="font-size: 0.7rem;">Contactos</span>
+        </NavLink>
+
+        <NavLink href="/ajustes" class="nav-link text-center d-flex flex-column align-items-center text-secondary" ActiveClass="text-primary fw-bold">
+            <i class="bi bi-sliders fs-4 mb-1"></i>
+            <span style="font-size: 0.7rem;">Ajustes</span>
+        </NavLink>
+
+    </nav>
+</div>

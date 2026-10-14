@@ -1,0 +1,150 @@
+﻿@page "/movimientos"
+@using GestorComercial_Movil.Models
+@inject NavigationManager NavManager
+
+<div class="container-fluid pt-3 pb-5" style="background-color: #F8F9FA; min-height: 100vh;">
+    <!-- Encabezado superior -->
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <div class="d-flex align-items-center">
+            <i class="bi bi-layers-fill text-primary fs-3 me-2" style="color: #5B4EFA !important;"></i>
+            <div>
+                <h5 class="fw-bold mb-0 text-dark" style="font-size: 1.1rem;">NexLedger</h5>
+                <small class="text-primary fw-bold" style="font-size: 0.65rem; letter-spacing: 1px; color: #5B4EFA !important;">OPERATIONS</small>
+            </div>
+        </div>
+        <div class="d-flex gap-3 text-secondary fs-5 align-items-center">
+            <div class="position-relative">
+                <i class="bi bi-bell"></i>
+                <span class="position-absolute top-0 start-100 translate-middle p-1 bg-danger border border-light rounded-circle"></span>
+            </div>
+            <img src="https://ui-avatars.com/api/?name=Admin&background=random" class="rounded-circle" width="32" alt="Avatar">
+        </div>
+    </div>
+
+    <!-- Pestañas (Tabs) -->
+    <div class="bg-white rounded-pill p-1 shadow-sm d-flex mb-3 border">
+        <button class="btn btn-white text-primary fw-bold w-50 rounded-pill shadow-sm d-flex justify-content-center align-items-center gap-2" style="font-size: 0.85rem;">
+            <i class="bi bi-arrow-up-right"></i> Salidas / Ventas
+        </button>
+        <button class="btn text-muted fw-bold w-50 rounded-pill d-flex justify-content-center align-items-center gap-2 bg-transparent" style="font-size: 0.85rem;">
+            <i class="bi bi-arrow-down-left"></i> Ingresos / Compras
+        </button>
+    </div>
+
+    <!-- Tarjeta Principal (Corte Mensual) -->
+    <div class="card border-0 rounded-4 p-3 mb-3 text-white shadow-sm" style="background-color: #5B4EFA;">
+        <div class="d-flex justify-content-between align-items-start mb-2">
+            <span class="badge bg-white bg-opacity-25 text-white rounded-pill px-2 py-1" style="font-size: 0.65rem; letter-spacing: 1px;">CORTE MENSUAL</span>
+            <small class="text-white opacity-75" style="font-size: 0.7rem;"><i class="bi bi-circle-fill text-success me-1" style="font-size: 0.4rem;"></i> API Synced: Justo ahora</small>
+        </div>
+        <small class="opacity-75 d-block mt-2" style="font-size: 0.8rem;">Total Facturado:</small>
+        <h2 class="fw-bold mb-1">$42,850.00 <small class="opacity-75" style="font-size: 0.8rem;">USD</small></h2>
+        <div class="d-flex align-items-center mt-2 bg-white bg-opacity-10 rounded-3 p-2 w-75">
+            <i class="bi bi-receipt me-2"></i>
+            <small style="font-size: 0.75rem;">Volumen: 84 transacciones</small>
+        </div>
+    </div>
+
+    <!-- Filtros de Fecha -->
+    <div class="d-flex gap-2 overflow-auto pb-2 mb-1" style="white-space: nowrap; scrollbar-width: none;">
+        <button class="btn btn-white bg-white border rounded-pill px-3 py-1 text-muted" style="font-size: 0.8rem;">Hoy</button>
+        <button class="btn btn-white bg-white border rounded-pill px-3 py-1 text-muted" style="font-size: 0.8rem;">Esta semana</button>
+        <button class="btn btn-primary rounded-pill px-3 py-1 fw-bold text-white shadow-sm border-0" style="background-color: #5B4EFA; font-size: 0.8rem;">Este mes</button>
+        <button class="btn btn-white bg-white border rounded-pill px-3 py-1 text-muted" style="font-size: 0.8rem;">Q2 2024</button>
+    </div>
+
+    <!-- Filtros de Estado -->
+    <div class="d-flex gap-2 overflow-auto pb-3 mb-2" style="white-space: nowrap; scrollbar-width: none;">
+        <button class="btn btn-dark rounded-pill px-3 py-1 fw-bold text-white shadow-sm" style="font-size: 0.75rem;">Todas (84)</button>
+        <button class="btn btn-white bg-white border rounded-pill px-3 py-1 text-muted" style="font-size: 0.75rem;">Pagadas (78)</button>
+        <button class="btn btn-white bg-white border rounded-pill px-3 py-1 text-muted" style="font-size: 0.75rem;">Pendientes (5)</button>
+        <button class="btn btn-white bg-white border rounded-pill px-3 py-1 text-muted" style="font-size: 0.75rem;">Anuladas (1)</button>
+    </div>
+
+    <!-- Lista de Transacciones -->
+    <div class="pb-5 mb-5">
+
+        <!-- Tarjeta Venta (Pagada) -->
+        <div class="card border-0 shadow-sm rounded-4 mb-3">
+            <div class="card-body p-3">
+                <div class="d-flex justify-content-between align-items-start mb-1">
+                    <small class="text-primary fw-bold" style="font-size: 0.7rem; color: #5B4EFA !important;">#VTA-2024-089</small>
+                    <span class="badge bg-success bg-opacity-10 text-success rounded-pill px-2 py-1 border border-success border-opacity-25" style="font-size: 0.7rem;"><i class="bi bi-circle-fill me-1" style="font-size: 0.4rem;"></i>Pagada</span>
+                </div>
+                <h6 class="fw-bold text-dark mb-3" style="font-size: 0.95rem;">Tech Solutions S.A.</h6>
+                <div class="d-flex justify-content-between align-items-end">
+                    <div class="d-flex align-items-center text-muted" style="font-size: 0.75rem;">
+                        <i class="bi bi-box me-1"></i> 12 items <span class="mx-1">•</span> CD-1 Central
+                    </div>
+                    <h6 class="fw-bold text-dark mb-0">$14,250.00 <small class="text-muted" style="font-size: 0.65rem;">USD</small></h6>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tarjeta Venta 2 (Pagada) -->
+        <div class="card border-0 shadow-sm rounded-4 mb-3">
+            <div class="card-body p-3">
+                <div class="d-flex justify-content-between align-items-start mb-1">
+                    <small class="text-primary fw-bold" style="font-size: 0.7rem; color: #5B4EFA !important;">#VTA-2024-088</small>
+                    <span class="badge bg-success bg-opacity-10 text-success rounded-pill px-2 py-1 border border-success border-opacity-25" style="font-size: 0.7rem;"><i class="bi bi-circle-fill me-1" style="font-size: 0.4rem;"></i>Pagada</span>
+                </div>
+                <h6 class="fw-bold text-dark mb-3" style="font-size: 0.95rem;">Logística del Norte SRL</h6>
+                <div class="d-flex justify-content-between align-items-end">
+                    <div class="d-flex align-items-center text-muted" style="font-size: 0.75rem;">
+                        <i class="bi bi-box me-1"></i> 4 items <span class="mx-1">•</span> CD-1 Central
+                    </div>
+                    <h6 class="fw-bold text-dark mb-0">$3,420.00 <small class="text-muted" style="font-size: 0.65rem;">USD</small></h6>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tarjeta Venta 3 (Pendiente) -->
+        <div class="card border-0 shadow-sm rounded-4 mb-3">
+            <div class="card-body p-3">
+                <div class="d-flex justify-content-between align-items-start mb-1">
+                    <small class="text-primary fw-bold" style="font-size: 0.7rem; color: #5B4EFA !important;">#VTA-2024-087</small>
+                    <span class="badge bg-warning bg-opacity-10 text-warning rounded-pill px-2 py-1 border border-warning border-opacity-25" style="font-size: 0.7rem;"><i class="bi bi-circle-fill me-1" style="font-size: 0.4rem;"></i>Pendiente</span>
+                </div>
+                <h6 class="fw-bold text-dark mb-3" style="font-size: 0.95rem;">Distribuidora Alfa SAC</h6>
+                <div class="d-flex justify-content-between align-items-end">
+                    <div class="d-flex align-items-center text-muted" style="font-size: 0.75rem;">
+                        <i class="bi bi-box me-1"></i> 28 items <span class="mx-1">•</span> Almacén B
+                    </div>
+                    <h6 class="fw-bold text-dark mb-0">$8,950.00 <small class="text-muted" style="font-size: 0.65rem;">USD</small></h6>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tarjeta Ingreso (Recibido) -->
+        <div class="card border-0 shadow-sm rounded-4 mb-3 opacity-75">
+            <div class="card-body p-3">
+                <div class="d-flex justify-content-between align-items-start mb-1">
+                    <small class="text-secondary fw-bold" style="font-size: 0.7rem;">#ING-2024-041</small>
+                    <span class="badge bg-primary bg-opacity-10 text-primary rounded-pill px-2 py-1 border border-primary border-opacity-25" style="font-size: 0.7rem;"><i class="bi bi-circle-fill me-1" style="font-size: 0.4rem;"></i>Recibido</span>
+                </div>
+                <h6 class="fw-bold text-dark mb-3" style="font-size: 0.95rem;">Importadora Global Corp</h6>
+                <div class="d-flex justify-content-between align-items-end">
+                    <div class="d-flex align-items-center text-muted" style="font-size: 0.75rem;">
+                        <i class="bi bi-box-arrow-in-down me-1"></i> 50 items <span class="mx-1">•</span> Recepción
+                    </div>
+                    <!-- Sin monto en el diseño original para ingresos -->
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Botón Flotante Central/Derecha -->
+    <div class="position-fixed" style="bottom: 80px; right: 20px; z-index: 1040;">
+        <button class="btn btn-primary rounded-pill px-4 py-3 shadow-lg fw-bold d-flex align-items-center gap-2" style="background-color: #5B4EFA; border: none;" @onclick="IrANuevaVenta">
+            <i class="bi bi-plus-lg fs-5"></i> Registrar Movimiento
+        </button>
+    </div>
+</div>
+
+@code {
+    private void IrANuevaVenta()
+    {
+        NavManager.NavigateTo("/carrito");
+    }
+}
