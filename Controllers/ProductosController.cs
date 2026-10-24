@@ -3,13 +3,18 @@ using GestorComercial_API.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using GestorComercial_API.Data; 
+using GestorComercial_API.Models;
+
+
 
 namespace GestorComercial_API.Controllers
 {
-    [Authorize]
+    [Authorize] 
     [Route("api/[controller]")]
     [ApiController]
     public class ProductosController : ControllerBase
+
     {
         private readonly ApplicationDbContext _context;
         private readonly IWebHostEnvironment _env;
@@ -66,6 +71,7 @@ namespace GestorComercial_API.Controllers
             if (imagen == null || imagen.Length == 0)
                 return BadRequest("No se proporcionó ninguna imagen válida.");
 
+            // Asegurar que la ruta wwwroot/uploads exista
             string wwwRootPath = _env.WebRootPath ?? Path.Combine(Directory.GetCurrentDirectory(), "wwwroot");
             string uploadsFolder = Path.Combine(wwwRootPath, "uploads");
 
@@ -74,6 +80,7 @@ namespace GestorComercial_API.Controllers
                 Directory.CreateDirectory(uploadsFolder);
             }
 
+            // Generar nombre único y guardar físicamente el archivo
             string uniqueFileName = Guid.NewGuid().ToString() + "_" + imagen.FileName;
             string filePath = Path.Combine(uploadsFolder, uniqueFileName);
 
@@ -82,6 +89,7 @@ namespace GestorComercial_API.Controllers
                 await imagen.CopyToAsync(fileStream);
             }
 
+            // Actualizar el string en PostgreSQL y guardar cambios
             producto.ImagenUrl = "/uploads/" + uniqueFileName;
             await _context.SaveChangesAsync();
 
@@ -93,3 +101,4 @@ namespace GestorComercial_API.Controllers
         }
     }
 }
+    
