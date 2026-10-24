@@ -1,13 +1,12 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
-using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
 namespace GestorComercial_API.Migrations
 {
     /// <inheritdoc />
-    public partial class InicializacionDB : Migration
+    public partial class InicialSqlServer : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -16,10 +15,10 @@ namespace GestorComercial_API.Migrations
                 name: "Categorias",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    Nombre = table.Column<string>(type: "text", nullable: false),
-                    Descripcion = table.Column<string>(type: "text", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Nombre = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Descripcion = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -30,10 +29,10 @@ namespace GestorComercial_API.Migrations
                 name: "Clientes",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    Nombre = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
-                    DniCuit = table.Column<string>(type: "character varying(20)", maxLength: 20, nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Nombre = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    DniCuit = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -44,10 +43,10 @@ namespace GestorComercial_API.Migrations
                 name: "Proveedores",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    RazonSocial = table.Column<string>(type: "character varying(150)", maxLength: 150, nullable: false),
-                    Contacto = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: true)
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    RazonSocial = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: false),
+                    Contacto = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -58,12 +57,12 @@ namespace GestorComercial_API.Migrations
                 name: "Usuarios",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    Nombre = table.Column<string>(type: "text", nullable: false),
-                    Email = table.Column<string>(type: "text", nullable: false),
-                    PasswordHash = table.Column<string>(type: "text", nullable: false),
-                    Rol = table.Column<string>(type: "text", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Nombre = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    PasswordHash = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Rol = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -74,14 +73,14 @@ namespace GestorComercial_API.Migrations
                 name: "Productos",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    Nombre = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
-                    Descripcion = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
-                    Precio = table.Column<decimal>(type: "numeric(18,2)", nullable: false),
-                    StockActual = table.Column<int>(type: "integer", nullable: false),
-                    ImagenUrl = table.Column<string>(type: "character varying(255)", maxLength: 255, nullable: true),
-                    CategoriaId = table.Column<int>(type: "integer", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Nombre = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Descripcion = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Precio = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    Stock = table.Column<int>(type: "int", nullable: false),
+                    ImagenUrl = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CategoriaId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -98,12 +97,12 @@ namespace GestorComercial_API.Migrations
                 name: "IngresosProductos",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    Fecha = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    Cantidad = table.Column<int>(type: "integer", nullable: false),
-                    ProveedorId = table.Column<int>(type: "integer", nullable: false),
-                    ProductoId = table.Column<int>(type: "integer", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    FechaRegistro = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Cantidad = table.Column<int>(type: "int", nullable: false),
+                    ProveedorId = table.Column<int>(type: "int", nullable: false),
+                    ProductoId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -126,12 +125,12 @@ namespace GestorComercial_API.Migrations
                 name: "SalidasProductos",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    Fecha = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    Cantidad = table.Column<int>(type: "integer", nullable: false),
-                    ClienteId = table.Column<int>(type: "integer", nullable: false),
-                    ProductoId = table.Column<int>(type: "integer", nullable: false)
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    FechaRegistro = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Cantidad = table.Column<int>(type: "int", nullable: false),
+                    ClienteId = table.Column<int>(type: "int", nullable: false),
+                    ProductoId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {

@@ -3,7 +3,11 @@ using GestorComercial_API.Data;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using QuestPDF.Infrastructure;
 
+
+//Instalar la Librería Para generar los reportes físicos
+QuestPDF.Settings.License = LicenseType.Community;
 // 1. CREAR EL BUILDER PRIMERO
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,7 +19,7 @@ builder.Services.AddControllers().AddJsonOptions(options =>
 
 // 2. CONFIGURAR BASE DE DATOS
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 // 3. CONFIGURAR CORS PERMISIVO
 builder.Services.AddCors(options => {

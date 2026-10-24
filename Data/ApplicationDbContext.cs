@@ -1,6 +1,5 @@
 ﻿using GestorComercial_API.Models;
 using Microsoft.EntityFrameworkCore;
-using GestorComercial_API.Models; // Cambia "TuProyecto" por el namespace real de tu API
 
 namespace GestorComercial_API.Data
 {
@@ -20,6 +19,19 @@ namespace GestorComercial_API.Data
         public DbSet<IngresoProducto> IngresosProductos { get; set; }
         public DbSet<SalidaProducto> SalidasProductos { get; set; }
 
+        public DbSet<MovimientoStock> MovimientosStock { get; set; }
+        public DbSet<Venta> Ventas { get; set; }
+        public DbSet<DetalleVenta> DetallesVentas { get; set; }
+
+        // forzamos la creación del DBContext
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            if (!optionsBuilder.IsConfigured)
+            {
+                optionsBuilder.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=InventarioDbTP;Trusted_Connection=True;MultipleActiveResultSets=true");
+            }
+        }
+
         // Configuración adicional mediante Fluent API
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -29,9 +41,6 @@ namespace GestorComercial_API.Data
             modelBuilder.Entity<Producto>()
                 .Property(p => p.Precio)
                 .HasColumnType("decimal(18,2)");
-
-            // (Opcional) Si Ingreso o Salida tienen montos totales, haz lo mismo:
-            // modelBuilder.Entity<IngresoProducto>().Property(i => i.Total).HasColumnType("decimal(18,2)");
         }
     }
 }
